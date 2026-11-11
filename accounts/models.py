@@ -27,7 +27,7 @@ class vendorRegistration(models.Model):
     address_2=models.CharField(max_length=100)
     city=models.CharField(max_length=100)
     state=models.CharField(max_length=100)
-    zipcode=models.IntegerField(max_length=100)
+    zipcode=models.IntegerField()
     licence_no=models.IntegerField()
     licence_img=models.ImageField(upload_to='licence_img/',blank=True,null=True)
     travel_img=models.ImageField(upload_to='travel_img/',blank=True,null=True)
