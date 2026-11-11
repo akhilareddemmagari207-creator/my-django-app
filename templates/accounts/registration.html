@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+    /* Premium Translucent Glassmorphic Container Layer for Registration */
+    .register-glass-card {
+        background: rgba(72, 93, 126, 0.45) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 24px !important;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6) !important;
+        color: #ffffff !important;
+        padding: 3rem !important;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    /* Override dynamic crispy label colors & headers to match dark luxury look */
+    .register-glass-card h1, 
+    .register-glass-card h5, 
+    .register-glass-card label,
+    .register-glass-card .form-label,
+    .register-glass-card .text-muted,
+    .register-glass-card .asteriskField {
+        color: #f8fafc !important;
+        font-weight: 500 !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .register-glass-card h5 {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+    }
+
+    /* Polished Form Inputs fields inside crispy engine controls */
+    .register-glass-card input, 
+    .register-glass-card select, 
+    .register-glass-card textarea {
+        background-color: rgba(255, 255, 255, 0.08) !important;
+        border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+        border-radius: 10px !important;
+        color: #ffffff !important;
+        padding: 0.65rem 1rem !important;
+        transition: all 0.25s ease-in-out !important;
+    }
+
+    .register-glass-card input:focus, 
+    .register-glass-card select:focus, 
+    .register-glass-card textarea:focus {
+        background-color: rgba(15, 23, 42, 0.8) !important;
+        border-color: #38bdf8 !important;
+        box-shadow: 0 0 0 4px rgb(56 189 248 / 0.25) !important;
+        color: #ffffff !important;
+        outline: none !important;
+    }
+
+    /* Custom File input indicator field layout styles */
+    .register-glass-card input[type="file"] {
+        padding: 0.4rem !important;
+    }
+    .register-glass-card input[type="file"]::file-selector-button {
+        background-color: rgba(255, 255, 255, 0.15) !important;
+        border: none !important;
+        border-radius: 6px !important;
+        color: #ffffff !important;
+        padding: 0.35rem 0.9rem !important;
+        transition: all 0.2s ease !important;
+    }
+    .register-glass-card input[type="file"]::file-selector-button:hover {
+        background-color: #38bdf8 !important;
+        color: #0f172a !important;
+    }
+
+    /* Submit Action Custom Button layout overrides triggers blocks */
+    .btn-register-action {
+        background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%) !important;
+        border: none !important;
+        border-radius: 10px !important;
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4) !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.6px !important;
+        transition: all 0.25s ease-in-out !important;
+    }
+
+    .btn-register-action:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6) !important;
+        filter: brightness(1.1);
+    }
+
+    .register-glass-card a {
+        color: #38bdf8 !important;
+        text-decoration: none !important;
+        font-weight: bold;
+    }
+    .register-glass-card a:hover {
+        text-decoration: underline !important;
+    }
+
+    /* Adjust Captcha manual widget element style output */
+    .register-glass-card img.captcha {
+        border-radius: 8px !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="register-glass-card shadow-lg">
+                {% if registered %}
+                    <div class="text-center p-4">
+                        <h1 class="text-success mb-3">Thank you for registration! 🎉</h1>
+                        <p class="lead">Your customer profile has been created successfully.</p>
+                        <br>
+                        <p>Please proceed to <a href="{% url 'login' %}">Login</a></p>
+                    </div>
+                {% else %}     
+                    <h1 style="text-align: center;" class="mb-4">SignUp Here</h1>
+                    <form enctype="multipart/form-data" method="POST">
+                        {% csrf_token %}
+                        
+                        <!-- Account Basic Metadata -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form1.username | as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form1.email | as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <!-- Personal Metrics Fields -->
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form2.age | as_crispy_field }} 
+                            </div>
+                            <div class="col-md-4">
+                                {{ form2.phone | as_crispy_field }} 
+                            </div>
+                            <div class="col-md-4">
+                                {{ form2.house_no | as_crispy_field }} 
+                            </div>
+                        </div>
+
+                        <!-- Address Mapping Rows Layout -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form2.street | as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form2.landmark | as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form2.city | as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form2.state | as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <!-- Assets Uploading parameters row grid -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form2.zipcode | as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form2.userimg | as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form1.password | as_crispy_field }}
+                            </div>
+                        </div>
+
+                        <!-- Captcha Element Block Wrapper indicators -->
+                        <div class="my-3">
+                            {{ form2.captcha }}
+                        </div>
+                        
+                        <br>
+                        <input type="submit" class="btn btn-register-action w-100 p-2 fw-bold" value="REGISTER ACCOUNT">  
+                    </form>  
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

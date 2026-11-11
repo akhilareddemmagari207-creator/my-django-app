@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<style>
+    /* Neon Glowing Floating Base Grid Card Container Wrapper Area */
+    .bus-management-card {
+        background: rgba(114, 145, 196, 0.45) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 24px !important;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.55) !important;
+        color: #ffffff !important;
+        padding: 3rem !important;
+        margin-top: 35px;
+        margin-bottom: 35px;
+    }
+
+    .bus-management-card h1,
+    .bus-management-card h2,
+    .bus-management-card h5,
+    .bus-management-card label,
+    .bus-management-card .form-label,
+    .bus-management-card .text-muted,
+    .bus-management-card .asteriskField {
+        color: #f8fafc !important;
+        font-weight: 500 !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .bus-management-card h2 {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+    }
+
+    /* Polished Form Inputs Fields components inside crispy engine controls area styling targets */
+    .bus-management-card input,
+    .bus-management-card select,
+    .bus-management-card textarea {
+        background-color: rgba(255, 255, 255, 0.08) !important;
+        border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+        border-radius: 10px !important;
+        color: #ffffff !important;
+        padding: 0.65rem 1rem !important;
+        transition: all 0.25s ease-in-out !important;
+    }
+
+    .bus-management-card input:focus,
+    .bus-management-card select:focus,
+    .bus-management-card textarea:focus {
+        background-color: rgba(15, 23, 42, 0.85) !important;
+        border-color: #38bdf8 !important;
+        box-shadow: 0 0 0 4px rgb(56 189 248 / 0.25) !important;
+        color: #ffffff !important;
+        outline: none !important;
+    }
+
+    /* Custom Accent Submit Execution Buttons parameters controls styling styles configuration overrides */
+    .btn-bus-action {
+        background: linear-gradient(135deg, #1634ac 0%, #1534b0 100%) !important;
+        border: none !important;
+        border-radius: 10px !important;
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35) !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.5px !important;
+        padding: 0.8rem 2rem !important;
+        transition: all 0.25s ease-in-out !important;
+    }
+
+    .btn-bus-action:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(16, 78, 185, 0.55) !important;
+        filter: brightness(1.1);
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="bus-management-card shadow-lg">
+                <h2 class="pb-2 mb-4">Add New Bus Details</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <br>
+                    <button type="submit" class="btn btn-bus-action w-100 fw-bold">SAVE & ADD BUS</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+    /* Neon Glowing Minimalist Frosted Form Center Wrapper Layout */
+    .login-glass-card {
+        background: rgba(91, 124, 178, 0.45) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 24px !important;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65) !important;
+        color: #ffffff !important;
+        padding: 3rem !important;
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+
+    .login-glass-card h1, 
+    .login-glass-card label, 
+    .login-glass-card .form-label,
+    .login-glass-card .text-muted,
+    .login-glass-card p {
+        color: #f8fafc !important;
+        font-weight: 500 !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .login-glass-card h1 {
+        border-bottom: 1px solid rgba(133, 72, 173, 0.15) !important;
+        font-weight: 700 !important;
+        padding-bottom: 12px;
+    }
+
+    /* Polished Input Field Overrides inside crispy form elements framework logic */
+    .login-glass-card input {
+        background-color: rgba(255, 255, 255, 0.08) !important;
+        border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+        border-radius: 10px !important;
+        color: #ffffff !important;
+        padding: 0.7rem 1.1rem !important;
+        transition: all 0.25s ease-in-out !important;
+    }
+
+    .login-glass-card input:focus {
+        background-color: rgba(15, 23, 42, 0.85) !important;
+        border-color: #38bdf8 !important;
+        box-shadow: 0 0 0 4px rgb(56 189 248 / 0.25) !important;
+        color: #ffffff !important;
+        outline: none !important;
+    }
+
+    /* Action Login primary authorization submission button overrides triggers blocks */
+    .btn-login-action {
+        background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%) !important;
+        border: none !important;
+        border-radius: 10px !important;
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4) !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.5px !important;
+        transition: all 0.25s ease-in-out !important;
+    }
+
+    .btn-login-action:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6) !important;
+        filter: brightness(1.1);
+    }
+
+    /* Hyperlink tags setups configurations dynamic updates */
+    .login-glass-card a {
+        color: #38bdf8 !important;
+        text-decoration: none !important;
+        transition: opacity 0.2s ease !important;
+    }
+    .login-glass-card a:hover {
+        text-decoration: underline !important;
+        opacity: 0.9;
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- 🟢 Applied the .login-glass-card wrapper card layout profile structure here -->
+            <div class="login-glass-card shadow-lg">
+                <h1 style="text-align: center;" class="mb-4">Login</h1>
+                <form action="{% url 'login' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <!-- Used form3 context fields variables handles dynamically matching your template parameters -->
+                        <div class="col-md-6">
+                            {{ form3.username | as_crispy_field }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form3.password | as_crispy_field }}
+                        </div>
+                    </div>
+                    <br>
+                    <input type="submit" class="btn btn-login-action w-100 p-2 fw-bold" value="LOGIN">
+                </form>
+                <br>
+                <p class="text-center mb-0">Don't have an account? <a href="{% url 'register' %}" class="fw-bold">Register</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

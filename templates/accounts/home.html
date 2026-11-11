@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* Neon Glowing Main Canvas Banner Form Wrapper Area */
+    .home-glass-box {
+        background: rgba(113, 182, 212, 0.35) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 24px !important;
+        padding: 2.5rem !important;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+        margin-top: 30px;
+        margin-bottom: 40px;
+    }
+
+    .text-white-glow {
+        color: #ffffff !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .text-white-glow-heading {
+        color: #ffffff !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Premium Agency Cards Grid Styling Layer Overrides */
+    .agency-luxury-card {
+        background: rgba(255, 255, 255, 0.06) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 16px !important;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+    }
+    .agency-luxury-card:hover {
+        transform: translateY(-5px);
+        border-color: #38bdf8 !important;
+        box-shadow: 0 12px 30px rgba(56, 189, 248, 0.3) !important;
+        background: rgba(101, 59, 185, 0.1) !important;
+    }
+
+    .agency-luxury-card .card-body h5 {
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        transition: color 0.2s ease;
+    }
+    .agency-luxury-card:hover .card-body h5 {
+        color: #38bdf8 !important;
+    }
+
+    .agency-luxury-card .card-body p {
+        color: #cbd5e1 !important;
+    }
+
+    /* Carousel Custom Adjustments controls mapping layers */
+    .carousel-inner {
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    }
+    .carousel-caption {
+        background: rgba(15, 23, 42, 0.65) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 12px !important;
+        padding: 1.5rem !important;
+    }
+    .carousel-caption h5 {
+        color: #38bdf8 !important;
+        font-weight: 700 !important;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="home-glass-box shadow-lg">
+        
+        {% if user.is_authenticated %}
+            <br>
+            
+            <!-- Carousel Section with Real Bus Images -->
+            <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner rounded-4 shadow-sm" style="height: 400px; background-color: rgba(15, 23, 42, 0.4);">
+                    
+                    <!-- Slide 1 -->
+                    <div class="carousel-item active" data-bs-interval="3000">
+                        <img src='{% static "images/bus1.jpg" %}' class="d-block w-100" alt="Bus 1" style="height: 400px; object-fit: cover; opacity: 0.85;">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Safe and Comfortable Bus Travels</h5>
+                            <p class="mb-0">Book your tickets with top travel agencies.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 2 -->
+                    <div class="carousel-item" data-bs-interval="3000">
+                        <img src='{% static "images/bus2.jpg" %}' class="d-block w-100" alt="Bus 2" style="height: 400px; object-fit: cover; opacity: 0.85;">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Explore Top Travel Routes</h5>
+                            <p class="mb-0">Premium sleeper and AC buses at best prices.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 3 -->
+                    <div class="carousel-item" data-bs-interval="3000">
+                        <img src="{% static 'images/bus3.jpg' %}" class="d-block w-100" alt="Bus 3" style="height: 400px; object-fit: cover; opacity: 0.85;">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Best Agency Booking Platform</h5>
+                            <p class="mb-0">Enjoy a hassle-free journey across cities.</p>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                    <span class="carousel-control-prev-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                
+                <!-- Bottom Indicators -->
+                <div class="carousel-indicators position-relative mt-3 justify-content-center">
+                    <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="0" class="active bg-light" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="1" class="bg-light" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="2" class="bg-light" aria-label="Slide 3"></button>
+                </div>
+            </div>
+
+            <br>
+
+            <!-- Top Travel Agencies Section Heading Layer -->
+            <h4 class="text-white-glow-heading pb-2 mt-4">Top Travel Agencies</h4>
+
+            <div class="row row-cols-1 row-cols-md-4 g-4 mt-1">
+                {% for vendor in approved_vendors %}
+                    <div class="col">
+                        <a href="{% url 'travels_detail' vendor.id %}" class="text-decoration-none">
+                            <div class="card agency-luxury-card h-100">
+                                
+                                <!-- Card Image block handlers check variables validation -->
+                                {% if vendor.travel_img %}
+                                    <img src="{{ vendor.travel_img.url }}" class="card-img-top" alt="{{ vendor.travels_name }}" style="height: 180px; object-fit: cover;">
+                                {% else %}
+                                    {% if forloop.counter == 1 %}
+                                        <img src="{% static 'images/bus11.jpg' %}" class="card-img-top" alt="Default Bus 1" style="height: 180px; object-fit: cover;">
+                                    {% elif forloop.counter == 2 %}
+                                        <img src="{% static 'images/bus12.jpg' %}" class="card-img-top" alt="Default Bus 2" style="height: 180px; object-fit: cover;">
+                                    {% elif forloop.counter == 3 %}
+                                        <img src="{% static 'images/bus13.jpg' %}" class="card-img-top" alt="Default Bus 3" style="height: 180px; object-fit: cover;">
+                                    {% else %}
+                                        <img src="{% static 'images/bus14.jpg' %}" class="card-img-top" alt="Default Bus 4" style="height: 180px; object-fit: cover;">
+                                    {% endif %}
+                                {% endif %}
+                                
+                                <div class="card-body p-3">
+                                    <h5 class="card-title text-truncate mb-1">{{ vendor.travels_name }}</h5>
+                                    <p class="card-text small font-monospace mb-0 text-info">📍 ESTD: {{ vendor.estd_year }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% empty %}
+                    <div class="col-12 text-center py-4">
+                        <div class="alert alert-light bg-transparent text-white-50 border-secondary shadow-sm mb-0" role="alert">
+                            Currently no registered travel agencies are approved by the administrator panel systems.
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        {% else %}
+            <!-- For Unauthenticated users routing handles message cards blocks layout validation system rules -->
+            <div class="text-center p-5">
+                <h2 class="text-white-glow mb-3">Welcome to Premium Bus Ticket Portal</h2>
+                <p class="lead text-white-50 max-w-2xl mx-auto mb-4">Please log in or create a standard/vendor user profile registration to manage fleet logistics, view available routes, and make seat allocations dynamically.</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="{% url 'login' %}" class="btn btn-search-glow px-4 py-2">Sign In to Continue</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

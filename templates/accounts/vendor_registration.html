@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<style>
+    /* Translucent Glassmorphism Container Matrix */
+    .vendor-glass-card {
+        background: rgba(82, 100, 129, 0.45) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 24px !important;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6) !important;
+        color: #ffffff !important;
+        padding: 3rem !important;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    /* Override dynamic crispy labels & headers colors */
+    .vendor-glass-card h1, 
+    .vendor-glass-card h5, 
+    .vendor-glass-card label,
+    .vendor-glass-card .form-label,
+    .vendor-glass-card .text-muted {
+        color: #f8fafc !important;
+        font-weight: 500 !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .vendor-glass-card h5 {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+    }
+
+    /* Polished Input text layout elements components inside crispy forms */
+    .vendor-glass-card input, 
+    .vendor-glass-card select, 
+    .vendor-glass-card textarea {
+        background-color: rgba(255, 255, 255, 0.08) !important;
+        border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+        border-radius: 10px !important;
+        color: #ffffff !important;
+        padding: 0.65rem 1rem !important;
+        transition: all 0.25s ease-in-out !important;
+    }
+
+    .vendor-glass-card input:focus, 
+    .vendor-glass-card select:focus, 
+    .vendor-glass-card textarea:focus {
+        background-color: rgba(15, 23, 42, 0.8) !important;
+        border-color: #38bdf8 !important;
+        box-shadow: 0 0 0 4px rgb(56 189 248 / 0.25) !important;
+        color: #ffffff !important;
+        outline: none !important;
+    }
+
+    /* File field selectors logic override details */
+    .vendor-glass-card input[type="file"] {
+        padding: 0.4rem !important;
+    }
+    .vendor-glass-card input[type="file"]::file-selector-button {
+        background-color: rgba(255, 255, 255, 0.15) !important;
+        border: none !important;
+        border-radius: 6px !important;
+        color: #ffffff !important;
+        padding: 0.35rem 0.9rem !important;
+        transition: all 0.2s ease !important;
+    }
+    .vendor-glass-card input[type="file"]::file-selector-button:hover {
+        background-color: #38bdf8 !important;
+        color: #0f172a !important;
+    }
+
+    /* Submit Action Custom Button block properties layout overrides */
+    .btn-vendor-primary {
+        background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%) !important;
+        border: none !important;
+        border-radius: 10px !important;
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4) !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.6px !important;
+        transition: all 0.25s ease-in-out !important;
+    }
+
+    .btn-vendor-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6) !important;
+        filter: brightness(1.1);
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="vendor-glass-card shadow-lg">
+                {% if registered %}
+                    <div class="text-center p-4">
+                        <h1 class="text-success mb-3">Thank you for Registration!</h1>
+                        <p class="lead">Your vendor profile is successfully created. Please wait for admin approval 🕒.</p>
+                        <br>
+                        <p>Please proceed to <a href="{% url 'login' %}" class="text-info fw-bold">Login</a></p>
+                    </div>
+                {% else %}
+                    <h1 style="text-align: center;" class="mb-4">Vendor SignUp Here</h1>
+                    <form enctype="multipart/form-data" method="POST">
+                        {% csrf_token %}
+                        
+                        <!-- Account Details -->
+                        <h5 class="pb-2 mb-3">Account Details</h5>
+                        <div class="row">
+                            <div class="col-md-6">{{ form1.username | as_crispy_field }}</div>
+                            <div class="col-md-6">{{ form1.email | as_crispy_field }}</div>
+                        </div>
+
+                        <!-- Business Details -->
+                        <h5 class="pb-2 mt-4 mb-3">Business Details</h5>
+                        <div class="row">
+                            <div class="col-md-6">{{ form2.travels_name | as_crispy_field }}</div>
+                            <div class="col-md-6">{{ form2.gst_no | as_crispy_field }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">{{ form2.phone_no | as_crispy_field }}</div>
+                            <div class="col-md-6">{{ form2.estd_year | as_crispy_field }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">{{ form2.address_1 | as_crispy_field }}</div>
+                            <div class="col-md-6">{{ form2.address_2 | as_crispy_field }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">{{ form2.city | as_crispy_field }}</div>
+                            <div class="col-md-4">{{ form2.state | as_crispy_field }}</div>
+                            <div class="col-md-4">{{ form2.zipcode | as_crispy_field }}</div>
+                        </div>
+
+                        <!-- Licence & Documents -->
+                        <h5 class="pb-2 mt-4 mb-3">Licence & Documents</h5>
+                        <div class="row">
+                            <div class="col-md-4">{{ form2.licence_no | as_crispy_field }}</div>
+                            <div class="col-md-4">{{ form2.licence_img | as_crispy_field }}</div>
+                            <div class="col-md-4">{{ form2.travel_img | as_crispy_field }}</div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6">{{ form1.password | as_crispy_field }}</div>
+                        </div>
+                        <br>
+                        <input type="submit" class="btn btn-vendor-primary w-100 p-2" value="REGISTER AS VENDOR">
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

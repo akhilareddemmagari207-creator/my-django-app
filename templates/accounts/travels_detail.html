@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- 🟢 AGENCY TRAVELS DETAIL LUXURY VIEW STYLES -->
+<style>
+    /* Premium Central Master Agency Profile Card Wrapper */
+    .agency-master-box {
+        background: rgba(107, 143, 197, 0.45) !important;
+        backdrop-filter: blur(18px) !important;
+        -webkit-backdrop-filter: blur(18px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 26px !important;
+        padding: 3rem !important;
+        box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.6) !important;
+        margin-top: 40px;
+        margin-bottom: 50px;
+        color: #ffffff !important;
+    }
+
+    .agency-master-box h1 {
+        font-weight: 800 !important;
+        color: #ffffff !important;
+        text-shadow: 0 2px 8px rgba(56, 189, 248, 0.4);
+    }
+    
+    .agency-master-box h4 {
+        color: #38bdf8 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+    }
+
+    /* Ultra Luxury Available Bus Route Ticket Cards styling elements */
+    .ticket-glass-card {
+        background: rgba(255, 255, 255, 0.06) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 18px !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25) !important;
+        overflow: hidden;
+    }
+    .ticket-glass-card:hover {
+        transform: translateY(-4px) scale(1.02);
+        border-color: #38bdf8 !important;
+        box-shadow: 0 15px 35px rgba(56, 189, 248, 0.35) !important;
+        background: rgba(255, 255, 255, 0.09) !important;
+    }
+
+    .ticket-glass-card h5 {
+        color: #ffffff !important;
+        font-weight: 700 !important;
+    }
+
+    /* Price Label Glow Badges Overrides */
+    .price-badge-glow {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+        font-size: 0.95rem !important;
+        font-weight: 700 !important;
+        box-shadow: 0 0 12px rgba(16, 185, 129, 0.4) !important;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 6px 14px !important;
+        color: #ffffff !important;
+    }
+
+    /* Route Station Direction Info Box Container Components */
+    .route-visual-badge {
+        background: rgba(15, 23, 42, 0.5) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        color: #38bdf8 !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.5px;
+    }
+
+    /* Redirect Back Actions buttons controls layout overrides */
+    .btn-secondary-glow {
+        background: rgba(255, 255, 255, 0.12) !important;
+        border: 1px solid rgba(255, 255, 255, 0.25) !important;
+        border-radius: 10px !important;
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        transition: all 0.2s ease !important;
+        padding: 0.6rem 1.6rem !important;
+    }
+    .btn-secondary-glow:hover {
+        background: rgba(255, 255, 255, 0.22) !important;
+        color: #ffffff !important;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-11">
+            <!-- 🟢 Old white panels stripped away for .agency-master-box frosted layout wrapper -->
+            <div class="agency-master-box shadow-lg">
+                
+                <!-- Agency Main Profile Headers -->
+                <div class="text-center mb-4">
+                    <h1 class="mb-1 text-uppercase">{{ agency.travels_name }}</h1>
+                    <p class="text-white-50 small mb-0">📍 {{ agency.city }}, {{ agency.state }}</p>
+                </div>
+                <hr style="border-color: rgba(255, 255, 255, 0.15);">
+
+                <h4 class="pb-2 mb-4">Available Buses</h4>
+
+                <!-- Fleet Grid Layout for Bus Box Cards -->
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% for bus in agency_buses %}
+                        <div class="col">
+                            <!-- 🟢 Correctly linked your seat allocation view URL logic block -->
+                            <a href="{% url 'bus_seat_layout' bus.id %}" class="text-decoration-none">
+                                <div class="card ticket-glass-card h-100">
+                                    <div class="card-body p-4">
+                                        
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <h5 class="mb-0 text-truncate" style="max-width: 70%;">{{ bus.bus_name }}</h5>
+                                            <span class="badge price-badge-glow">₹{{ bus.price }}</span>
+                                        </div>
+                                        
+                                        <h6 class="text-white-50 small mb-2">🔢 Bus No: <span class="text-info fw-bold">{{ bus.company }}</span></h6>
+                                        <p class="text-white-50 small mb-2">🚌 {{ bus.bus_type }}</p>
+                                        
+                                        <div class="p-2 route-visual-badge rounded mb-3 text-center font-monospace small">
+                                            <span>{{ bus.starting }} ➔ {{ bus.endpoint }}</span>
+                                        </div>
+                                        
+                                        <div class="d-flex justify-content-between small text-white-50 border-top rgba-border pt-2" style="border-top: 1px solid rgba(255,255,255,0.1) !important;">
+                                            <span>🕒 {{ bus.start_time }}</span>
+                                            <span>💺 {{ bus.total_seats }} Seats</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </a> 
+                        </div>
+                    {% empty %}
+                        <div class="col-12 text-center py-4">
+                            <p class="text-white-50">No buses available at this moment for this travels.</p>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Navigation Controls Footer links -->
+                <div class="mt-5 text-center">
+                    <a href="{% url 'home' %}" class="btn btn-secondary-glow">⬅️ Back to Home</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

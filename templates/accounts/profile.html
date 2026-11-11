@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- 🟢 USER PROFILE CARD DEEP LUXURY GLOW STYLES -->
+<style>
+    /* Premium Central Master Glass Container for User Profile */
+    .profile-glass-card {
+        background: rgba(96, 130, 184, 0.45) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 24px !important;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.65) !important;
+        color: #ffffff !important;
+        padding: 3rem !important;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    .profile-glass-card h1, 
+    .profile-glass-card h5, 
+    .profile-glass-card p, 
+    .profile-glass-card label {
+        color: #f8fafc !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .profile-glass-card h1 {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+        font-weight: 700 !important;
+        padding-bottom: 12px;
+    }
+
+    /* Avatar Glowing Ring Circle Structure */
+    .avatar-glowing-ring {
+        border: 4px solid rgba(56, 189, 248, 0.3) !important;
+        box-shadow: 0 0 25px rgba(56, 189, 248, 0.45) !important;
+        transition: all 0.3s ease-in-out;
+        object-fit: cover;
+    }
+    .avatar-glowing-ring:hover {
+        transform: scale(1.03);
+        border-color: #38bdf8 !important;
+        box-shadow: 0 0 30px rgba(56, 189, 248, 0.65) !important;
+    }
+
+    /* Profile Information Row Cells Display labels config */
+    .profile-meta-row {
+        background: rgba(15, 23, 42, 0.35) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 12px !important;
+        padding: 1rem 1.5rem !important;
+        margin-bottom: 12px;
+        transition: background 0.2s ease;
+    }
+    .profile-meta-row:hover {
+        background: rgba(15, 23, 42, 0.5) !important;
+    }
+
+    /* Main functional navigation redirection elements tags styling styles controls */
+    .btn-profile-action {
+        background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%) !important;
+        border: none !important;
+        border-radius: 10px !important;
+        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4) !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.5px !important;
+        padding: 0.75rem 2rem !important;
+        transition: all 0.25s ease-in-out !important;
+        text-decoration: none !important;
+    }
+
+    .btn-profile-action:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6) !important;
+        filter: brightness(1.1);
+        color: #ffffff !important;
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="profile-glass-card shadow-lg">
+                <h1 class="mb-4 text-center">User Account Profile</h1>
+                
+                {% if user.is_authenticated %}
+                <div class="row align-items-center g-5">
+                    
+                    <!-- Left Column: User Data Metrics Info fields mapping keys from userdetails object model -->
+                    <div class="col-md-7">
+                        <div class="profile-meta-row d-flex justify-content-between align-items-center">
+                            <span class="text-white-50 small text-uppercase">Username</span>
+                            <h5 class="mb-0 fw-bold text-info">{{ user.username }}</h5>
+                        </div>
+                        
+                        <div class="profile-meta-row d-flex justify-content-between align-items-center">
+                            <span class="text-white-50 small text-uppercase">Email Address</span>
+                            <h5 class="mb-0 text-white-50 text-truncate" style="max-width: 70%;">{{ user.email }}</h5>
+                        </div>
+
+                        <div class="profile-meta-row d-flex justify-content-between align-items-center">
+                            <span class="text-white-50 small text-uppercase">Age Limit</span>
+                            <!-- 🟢 FIXED model links mapping directly to user.userdetails variables -->
+                            <h5 class="mb-0 text-white">{{ user.userdetails.age }}</h5>
+                        </div>
+
+                        <div class="profile-meta-row d-flex justify-content-between align-items-center">
+                            <span class="text-white-50 small text-uppercase">Contact Phone</span>
+                            <h5 class="mb-0 font-monospace text-info">{{ user.userdetails.phone }}</h5>
+                        </div>
+
+                        <div class="profile-meta-row d-flex justify-content-between align-items-center">
+                            <span class="text-white-50 small text-uppercase">Location City</span>
+                            <h5 class="mb-0 text-white">{{ user.userdetails.city }}</h5>
+                        </div>
+                        
+                        <!-- Update Action button wrapper route handles controls indicators -->
+                        <div class="mt-4 pt-2">
+                            <a href="{% url 'update' %}" class="btn btn-profile-action d-block text-center fw-bold">Update Profile</a>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Avatar Frame Matrix configuration block setups -->
+                    <div class="col-md-5 text-center">
+                        {% if user.userdetails.userimg %}
+                            <!-- Dynamic image fetching from upload storage profile fields -->
+                            <img src="{{ user.userdetails.userimg.url }}" class="rounded-circle avatar-glowing-ring img-fluid" alt="Profile Picture" style="width: 220px; height: 220px; object-fit: cover; aspect-ratio: 1/1;">
+                        {% else %}
+                            <img src="{% static 'images/myphoto.png' %}" class="rounded-circle avatar-glowing-ring img-fluid" alt="Default Profile Image" style="width: 220px; height: 220px; object-fit: cover; aspect-ratio: 1/1;">
+                        {% endif %}
+                    </div>
+                    
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

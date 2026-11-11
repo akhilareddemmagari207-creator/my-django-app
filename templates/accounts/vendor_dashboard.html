@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    /* Premium Analytical Summary Card Widgets configuration setup controls */
+    .dashboard-stat-card {
+        background: rgba(99, 128, 174, 0.45) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 16px !important;
+        padding: 1.5rem !important;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25) !important;
+        transition: transform 0.25s ease !important;
+    }
+    .dashboard-stat-card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(56, 189, 248, 0.4) !important;
+    }
+
+    /* Modern Glassmorphism Master Data Cards Section Layout configurations */
+    .dashboard-glass-wrapper {
+        background: rgba(30, 41, 59, 0.35) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 24px !important;
+        padding: 2.5rem !important;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+        margin-top: 30px;
+        margin-bottom: 40px;
+    }
+
+    /* Dynamic Bus Fleet Cards UI Transformation styling elements */
+    .bus-fleet-card {
+        background: rgba(255, 255, 255, 0.06) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 16px !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+    }
+    .bus-fleet-card:hover {
+        transform: translateY(-4px);
+        border-color: #38bdf8 !important;
+        box-shadow: 0 12px 30px rgba(56, 189, 248, 0.25) !important;
+        background: rgba(255, 255, 255, 0.09) !important;
+    }
+
+    .bus-fleet-card h5 {
+        color: #ffffff !important;
+        font-weight: 700 !important;
+    }
+
+    .badge-price-glow {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+        font-size: 0.95rem !important;
+        font-weight: 700 !important;
+        box-shadow: 0 0 12px rgba(16, 185, 129, 0.4) !important;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 6px 14px !important;
+    }
+
+    .route-badge-box {
+        background: rgba(15, 23, 42, 0.5) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        color: #38bdf8 !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.5px;
+    }
+
+    /* Main functional navigation redirection elements tags styling styles controls */
+    .btn-action-glow {
+        background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%) !important;
+        border: none !important;
+        border-radius: 10px !important;
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+        transition: all 0.2s ease !important;
+        padding: 0.65rem 1.6rem !important;
+    }
+    .btn-action-glow:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(37, 99, 235, 0.45) !important;
+        color: #ffffff !important;
+    }
+
+    .text-white-glow {
+        color: #ffffff !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+</style>
+
+<div class="container mt-5">
+    {% if user.is_authenticated and user.vendorregistration %}
+        <!-- Dashboard Master Heading Title panel options elements row grid layout -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="text-white-glow mb-1">Welcome, {{ user.username }}!</h1>
+                <h5 class="text-white-50 font-monospace mb-0">Travels Agency: {{ user.vendorregistration.travels_name }}</h5>
+            </div>
+            <a href="{% url 'add_bus' %}" class="btn btn-action-glow">➕ Add New Bus</a>
+        </div>
+
+
+
+        <!-- Main fleet grids blocks loops layer wrapper section container profiles layouts styles setup entries -->
+        <div class="dashboard-glass-wrapper shadow-lg">
+            <h4 class="mb-4 text-white-glow border-bottom pb-2">Your Registered Buses</h4>
+            
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for bus in my_buses %}
+                    <div class="col">
+                        <div class="card bus-fleet-card h-100">
+                            <div class="card-body p-4">
+                                
+                                <!-- Top Row: Bus Name & Price matrix data variables handles tags definitions -->
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 class="mb-0">{{ bus.bus_name }}</h5>
+                                    <span class="badge badge-price-glow">Price: ₹{{ bus.price }}</span>
+                                </div>
+                                
+                                <!-- Bus details fields keys setups models profiles parameters outputs -->
+                                <div class="text-white-50 small mb-1">📇 Bus Registration No: <span class="text-info fw-bold">{{ bus.company }}</span></div>
+                                <div class="text-white-50 small mb-3">🚌 Configuration Grid: {{ bus.bus_type }}</div>
+                                
+                                <!-- Route Information Location Box labels setup columns elements -->
+                                <div class="p-2 route-badge-box rounded mb-3 text-center font-monospace">
+                                    <span>{{ bus.starting }} ➔ {{ bus.endpoint }}</span>
+                                </div>
+                                
+                                <!-- Bottom Row: Time details or allocation metrics status info -->
+                                <div class="d-flex justify-content-between small text-white-50 border-top rgba-border pt-2">
+                                    <span>🕒 Schedule Time: <span class="text-white fw-bold">{{ bus.start_time }}</span></span>
+                                    <span>💺 Configuration: <span class="text-white fw-bold">{{ bus.total_seats }} Seats</span></span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12 text-center py-4">
+                        <div class="alert alert-light bg-transparent text-white-50 border-secondary shadow-sm" role="alert">
+                            No buses added yet by your travel agency platform. Click "+ Add New Bus" to create items loops.
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    {% else %}
+        <!-- Safety Refusal Access Panel logic elements validation container triggers profiles configs setup scripts -->
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card bg-danger bg-opacity-25 text-white border-danger border-opacity-50 text-center p-5 rounded-4 shadow-lg">
+                    <h3 class="fw-bold mb-2">🔒 Access Denied</h3>
+                    <p class="mb-0">Mee profile verified status vendor segment matching unna account parameter errors. Please verify credentials logs.</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
