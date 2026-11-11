@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('django-insecure-)&mxvhu*hwc^-)2)q(k6exacgzlq*eoj%)!
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('my-django-app-1.onrender.com', '').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
 # Application definition
 
